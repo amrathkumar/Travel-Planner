@@ -1,0 +1,384 @@
+
+/* ---------- Global Styles ---------- */
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #333;
+}
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ---------- Header ---------- */
+header.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo a {
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+header nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+header nav ul li a {
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Hover underline animation */
+header nav ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #ff5722;
+    transition: width 0.3s ease;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
+}
+
+header nav ul li a:hover {
+    color: #ff5722;
+}
+
+/* ---------- Features Section ---------- */
+.features {
+    display: flex;
+    justify-content: space-around;
+    margin: 40px auto;
+    padding: 0 40px;
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+    padding: 25px;
+    width: 30%;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect: scale + glow */
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.feature-card .feature-icon {
+    font-size: 40px;
+}
+
+.feature-card h3 {
+    margin-top: 15px;
+}
+
+/* ---------- Destinations ---------- */
+.destinations {
+    padding: 20px 40px;
+}
+
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.destination-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect: card lift */
+.destination-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.destination-image {
+    font-size: 50px;
+}
+
+.destination-info h3 {
+    margin: 0;
+}
+
+.destination-price {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+/*------------destination-----*/
+.addDest {
+    height: 25px;
+    width : 25 px;
+    border-radius: 15px;
+}
+.DestH2{
+    font-size: larger;
+    font-weight: 800;
+    justify-items: center;
+}
+    /* Container for the cards */
+.cardd-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Individual card */
+.cardd {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.cardd:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
+.cardd-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+}
+
+/* Country code */
+.cardd-country {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #555;
+}
+
+.input-box {
+  width: 250px;
+  height: 250px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.input-box h2 {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+}
+
+.input-box input {
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-box input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+}
+
+.submit-btn {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #3a78c2;
+}
+.Remove {
+    height: 30 px;
+    width: 30px;
+    background-color:#dbe9fa ;
+    border-radius: 40 px;
+}
+/* ---------- Footer ---------- */
+footer {
+    background: #222;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+}
+
+footer h4 {
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+footer ul li a {
+    color: #ddd;
+    transition: color 0.3s ease, margin-left 0.2s;
+}
+
+/* Slight slide + color change */
+footer ul li a:hover {
+    color: #ff5722;
+    margin-left: 4px;
+}
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;  /* pushes footer down */
+}
+/* ---------- Responsive (Mobile) ---------- */
+@media (max-width: 768px) {
+
+    header.container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .features {
+        flex-direction: column;
+        width: 90%;
+        margin: auto;
+    }
+
+    .feature-card {
+        width: 100%;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+    footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+        --primary: 240 5.9% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 240 10% 3.9%;
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+        --radius: 0.5rem;
+    }
+  .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 240 4.9% 83.9%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+}

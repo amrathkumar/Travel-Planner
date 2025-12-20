@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Place</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 flex items-center justify-center">
+
+  <div class="w-full max-w-md bg-white/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl border border-gray-200">
+
+    <h2 class="text-3xl font-extrabold text-center mb-8 text-gray-800"><a href="/" ><button class="py-3 rounded-xl font-semibold  text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 transition-transform shadow-lg"
+      >Home</button></a>
+      ➕ Add New Place
+    </h2>
+
+    <form action="/destinations/new" method="POST" class="space-y-6">
+
+      <div class="relative">
+        <input
+          type="text"
+          name="name"
+          value="<%= formData?.name || '' %>"
+          required
+          class="peer w-full px-4 pt-6 pb-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          placeholder=" "
+        />
+        <label
+          class="absolute left-4 top-2 text-sm text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600 transition-all"
+        >
+          Place Name
+        </label>
+      </div>
+
+
+      <div class="relative">
+        <textarea
+          name="description"
+          rows="3"
+          required
+          class="peer w-full px-4 pt-6 pb-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-none"
+          placeholder=" "
+        ><%= formData?.description || '' %></textarea>
+        <label
+          class="absolute left-4 top-2 text-sm text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600 transition-all"
+        >
+          Description
+        </label>
+      </div>
+
+      <!-- Price -->
+      <div class="relative">
+        <input
+          type="number"
+          name="price"
+          value="<%= formData?.price || '' %>"
+          required
+          class="peer w-full px-4 pt-6 pb-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          placeholder=" "
+        />
+        <label
+          class="absolute left-4 top-2 text-sm text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600 transition-all"
+        >
+          Price (₹)
+        </label>
+      </div>
+
+      <!-- Icon -->
+      <div class="relative">
+        <input
+          type="text"
+          name="icon"
+          value="<%= formData?.icon || '' %>"
+          class="peer w-full px-4 pt-6 pb-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          placeholder=" "
+        />
+        <label
+          class="absolute left-4 top-2 text-sm text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600 transition-all"
+        >
+          Icon URL (optional)
+        </label>
+      </div>
+
+      <!-- Button -->
+      <button
+        type="submit"
+        class="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 transition-transform shadow-lg"
+      >
+        💾 Save Place
+      </button>
+
+    </form>
+    <h2  class="text-3xl font-extrabold text-center mb-8 text-gray-800">Delete Place</h2>
+    <form action="/destinations/remove" method="POST" class="space-y-6">
+
+      <div class="relative">
+        <input
+          type="text"
+          name="name"
+          value="<%= formData?.name || '' %>"
+          required
+          class="peer w-full px-4 pt-6 pb-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+          placeholder=" "
+        />
+        <label
+          class="absolute left-4 top-2 text-sm text-gray-500 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-600 transition-all"
+        >
+          Place Name
+        </label>
+      </div>
+      <button
+        type="submit"
+        class="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-95 transition-transform shadow-lg"
+      >
+        💾 Delete Place
+      </button>
+
+    </form>
+  </div>
+
+</body>
+</html>
