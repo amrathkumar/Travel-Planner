@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputBox from './inputBox.jsx';
+const API_BASE = "https://travel-planner-44k2.onrender.com";
+
 
 function Destination() {
   const [destinations, setDestinations] = useState([]);
@@ -8,7 +10,7 @@ function Destination() {
 
   const fetchDestinations = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/user/places");
+      const res = await fetch(`${API_BASE}/api/user/places`);
       if (!res.ok) throw new Error("Failed to fetch destinations");
 
       const data = await res.json();
@@ -32,7 +34,7 @@ function Destination() {
 
   const handleAddDest = async ({ user_id: userId, place, country_code: countryCode }) => {
     try {
-      await fetch("http://localhost:3000/api/user/places/put", {
+      await fetch(`${API_BASE}/api/user/places/put`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, place, country_code: countryCode })
@@ -48,7 +50,7 @@ function Destination() {
 
   const handleRemoveDest = async ({ user_id: userId, place, country_code: countryCode }) => {
     try {
-      await fetch("http://localhost:3000/api/user/places/delete", {
+      await fetch(`${API_BASE}/api/user/places/delete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId, place, country_code: countryCode })
