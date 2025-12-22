@@ -7,7 +7,7 @@ function Home() {
 
     const fetchDestinations = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/destinations/dis");
+            const res = await fetch(`${API_BASE}/api/destinations/dis`);
             if (!res.ok) throw new Error("Failed to fetch destinations");
 
             const data = await res.json();
