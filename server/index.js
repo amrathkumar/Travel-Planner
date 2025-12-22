@@ -1,5 +1,5 @@
 import express from "express";
-import pg from "pg"
+import { supabase } from './supabaseClient.js'
 import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
@@ -16,80 +16,105 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/dist")));
-
-const db =new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "Travel_planner",
-    password: "@amrt50020141",
-    port: 5432
-})
-
-db.connect();
-
+app.use(cors());
 app.use("/public", express.static(path.join(__dirname, "public")));
 
 //user
 app.get("/api/user/places", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM visited_place"); 
-    res.json(result.rows); 
-    console.log(result.rows)
+    const { data, error } = await supabase
+      .from("visited_place")
+      .select("*");
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    console.log(data);
+    res.json(data);
   } catch (err) {
-    console.error("Error fetching destinations:", err);
+    console.error("Server error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-app.post("/api/user/places/put", async (req,res)=>{
-  const {user_id, place, country_code} = req.body
-  console.log(req.body)
-  const userIdInt = parseInt(user_id);
-  try{
-    db.query("INSERT INTO visited_place (user_id,place,country_code) VALUES ($1, $2, $3)",[userIdInt, place, country_code],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ error: "Database error" });
-        }
-        res.json({ message: "Inserted successfully", result });
-      }
-    )
-  }
-  catch(error){
-    console.log(error)
-  }
-})
 
-app.post("/api/user/places/delete", async (req,res)=>{
-  const {user_id, place, country_code} = req.body
-  console.log(req.body)
-  try{
-    db.query("DELETE FROM visited_place WHERE user_id=$1 AND place =$2 AND country_code = $3",[user_id, place, country_code],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ error: "Database error" });
-        }
-        res.json({ message: " deleted successfully", result });
-      }
-    )
+app.post("/api/user/places/put", async (req, res) => {
+  try {
+    const { user_id, place, country_code } = req.body;
+
+    if (!user_id || !place || !country_code) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    const { error } = await supabase
+      .from("visited_place")
+      .insert({
+        user_id: Number(user_id),
+        place,
+        country_code
+      });
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.status(201).json({ message: "Inserted successfully" });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-  catch(error){
-    console.log(error)
+});
+
+app.post("/api/user/places/delete", async (req, res) => {
+  try {
+    const { user_id, place, country_code } = req.body;
+
+    if (!user_id || !place || !country_code) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    const { error } = await supabase
+      .from("visited_place")
+      .delete()
+      .eq("user_id", Number(user_id))
+      .eq("place", place)
+      .eq("country_code", country_code);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({ message: "Deleted successfully" });
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-})
+});
+
 
 app.get("/api/destinations/dis", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM destinationsbyadmin"); 
-    console.log(result.rows)
-    return res.status(200).json(result.rows)
+    const { data, error } = await supabase
+      .from("destinationsbyadmin")
+      .select("*");
+
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    console.log(data);
+    return res.status(200).json(data);
   } catch (err) {
-    console.error("Error fetching destinations:", err);
+    console.error("Server error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 //admin
 app.get("/destinations/new", (req, res) => {
@@ -99,40 +124,69 @@ app.get("/destinations/new", (req, res) => {
 });
 
 
-app.post("/destinations/new", async (req,res)=>{
-  const { name, description, price, icon } = req.body;
-  console.log("POST /items HIT");
-  console.log(req.body);
+app.post("/destinations/new", async (req, res) => {
+  try {
+    const { name, description, price, icon } = req.body;
+
+    console.log("POST /destinations/new HIT");
+    console.log(req.body);
+
     if (!name || !description || !price) {
       return res.render("host.ejs", {
         formData: req.body
       });
     }
 
-    await db.query(
-      "INSERT INTO destinationsbyadmin (name, description, price, icon) VALUES ($1, $2, $3, $4)",
-      [name, description, price, icon]
-    );
-    res.redirect("/destinations/new");
-})
+    const { error } = await supabase
+      .from("destinationsbyadmin")
+      .insert({
+        name,
+        description,
+        price,
+        icon
+      });
 
-app.post("/destinations/remove", async (req,res)=>{
-  const { name } = req.body;
-  console.log("POST /items HIT");
-  console.log(req.body);
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).send("Database insert failed");
+    }
+
+    res.redirect("/destinations/new");
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.post("/destinations/remove", async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    console.log("POST /destinations/remove HIT");
+    console.log(req.body);
+
     if (!name) {
       return res.render("host.ejs", {
         formData: req.body
       });
     }
 
-    await db.query(
-      "DELETE FROM destinationsbyadmin WHERE name = $1",
-      [name]
-    );
+    const { error } = await supabase
+      .from("destinationsbyadmin")
+      .delete()
+      .eq("name", name);
 
-  res.redirect("/");
-})
+    if (error) {
+      console.error("Supabase error:", error);
+      return res.status(500).send("Delete failed");
+    }
+
+    res.redirect("/");
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).send("Internal server error");
+  }
+});
 
 app.use(express.static("dist"));
 
