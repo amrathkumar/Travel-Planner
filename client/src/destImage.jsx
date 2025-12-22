@@ -2,6 +2,7 @@ import React from "react";
 import {useState,useEffect} from "react";
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
+const API_BASE = "https://travel-planner-44k2.onrender.com";
 
 function DestImage() {
     const [destinations, setDestinations] = useState([]);
@@ -11,7 +12,7 @@ function DestImage() {
     useEffect(() => {
         const fetchDestinations = async () => {
           try {
-            const res = await fetch("http://localhost:3000/api/user/places"); 
+            const res = await fetch(`API_BASE/api/user/places`); 
             if (!res.ok) {
               throw new Error("Failed to fetch destinations");
             }
