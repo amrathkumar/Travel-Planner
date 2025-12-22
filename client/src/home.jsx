@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+const API_BASE = "https://travel-planner-44k2.onrender.com";
 
 function Home() {
     const [destinations, setDestinations] = useState([]);
