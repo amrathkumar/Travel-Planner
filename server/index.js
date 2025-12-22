@@ -8,17 +8,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "../client/dist")));
-app.use(cors());
+app.use(cors({
+    origin: [
+      "https://travel-planner-kohl.vercel.app",
+      "http://localhost:3000"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  }));
 app.use("/public", express.static(path.join(__dirname, "public")));
 
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 //user
 app.get("/api/user/places", async (req, res) => {
   try {
@@ -188,14 +197,6 @@ app.post("/destinations/remove", async (req, res) => {
   }
 });
 
-app.use(express.static("dist"));
-
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
-
-
-app.listen(port,() => {
+app.listen(PORT,() => {
     console.log("working");
 })
