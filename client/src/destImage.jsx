@@ -12,7 +12,7 @@ function DestImage() {
     useEffect(() => {
         const fetchDestinations = async () => {
           try {
-            const res = await fetch(`API_BASE/api/user/places`); 
+            const res = await fetch(`{API_BASE}/api/user/places`); 
             if (!res.ok) {
               throw new Error("Failed to fetch destinations");
             }
