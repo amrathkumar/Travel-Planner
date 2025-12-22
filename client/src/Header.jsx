@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import './style.css'
 
 function Header() {
@@ -10,11 +11,11 @@ function Header() {
       </div>
       <nav>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/map">Conquered</a></li>
-          <li><a href="/user/places">My Destinations</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact Us</a></li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/map">Conquered</Link></li>
+          <li><Link to="/user/places">My Destinations</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact Us</Link></li>
         </ul>
       </nav>
     </header>
